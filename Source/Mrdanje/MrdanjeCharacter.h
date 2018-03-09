@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "MainCharacter/CharacterAbilities.h"
 #include "MrdanjeCharacter.generated.h"
 
 class UInputComponent;
@@ -25,6 +26,10 @@ class AMrdanjeCharacter : public ACharacter
 	/** First person camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FirstPersonCameraComponent;
+
+	/** Ability manager */
+	UPROPERTY(VisibleAnywhere, Category = Component)
+	class UCharacterAbilities* CharacterAbilities;
 
 
 public:

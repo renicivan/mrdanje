@@ -48,6 +48,7 @@ AMrdanjeCharacter::AMrdanjeCharacter()
 	ProjectileSpawnLocation->SetupAttachment(FirstPersonCameraComponent);
 	ProjectileSpawnLocation->SetRelativeLocation(FVector(0.0f, 48.4f, -1.6f));
 
+	CharacterAbilities = CreateDefaultSubobject<UCharacterAbilities>(TEXT("CharacterAbilities"));
 
 	/*
 	// Create a gun mesh component
@@ -97,6 +98,8 @@ void AMrdanjeCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+
+
 	/*
 	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
 	FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
@@ -147,6 +150,8 @@ void AMrdanjeCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerI
 	PlayerInputComponent->BindAxis("TurnRate", this, &AMrdanjeCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &AMrdanjeCharacter::LookUpAtRate);
+
+	CharacterAbilities->SetupPlayerInputComponent(PlayerInputComponent);
 }
 
 
