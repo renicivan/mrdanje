@@ -7,10 +7,10 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/InputSettings.h"
-#include "HeadMountedDisplayFunctionLibrary.h"
+//#include "HeadMountedDisplayFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"
-#include "MotionControllerComponent.h"
-#include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
+//#include "MotionControllerComponent.h"
+//#include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -38,9 +38,18 @@ AMrdanjeCharacter::AMrdanjeCharacter()
 	Mesh1P->SetupAttachment(FirstPersonCameraComponent);
 	Mesh1P->bCastDynamicShadow = false;
 	Mesh1P->CastShadow = false;
-	Mesh1P->RelativeRotation = FRotator(1.9f, -19.19f, 5.2f);
-	Mesh1P->RelativeLocation = FVector(-0.5f, -4.4f, -155.7f);
+	//Mesh1P->RelativeLocation = FVector(0.0f, 0.0f, 0.0f);
+	Mesh1P->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
+	//Mesh1P->RelativeRotation = FRotator(1.9f, -19.19f, 5.2f);
+	//Mesh1P->RelativeLocation = FVector(-0.5f, -4.4f, -155.7f);
 
+	// Create an origin point for spawning the projectiles
+	ProjectileSpawnLocation = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("ProjectileSpawnLocation"));
+	ProjectileSpawnLocation->SetupAttachment(FirstPersonCameraComponent);
+	ProjectileSpawnLocation->SetRelativeLocation(FVector(0.0f, 48.4f, -1.6f));
+
+
+	/*
 	// Create a gun mesh component
 	FP_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_Gun"));
 	FP_Gun->SetOnlyOwnerSee(true);			// only the owning player will see this mesh
@@ -79,7 +88,7 @@ AMrdanjeCharacter::AMrdanjeCharacter()
 	VR_MuzzleLocation->SetupAttachment(VR_Gun);
 	VR_MuzzleLocation->SetRelativeLocation(FVector(0.000004, 53.999992, 10.000000));
 	VR_MuzzleLocation->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f));		// Counteract the rotation of the VR gun model.
-
+	*/
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
 }
@@ -88,7 +97,7 @@ void AMrdanjeCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
-
+	/*
 	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
 	FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
 
@@ -103,6 +112,7 @@ void AMrdanjeCharacter::BeginPlay()
 		VR_Gun->SetHiddenInGame(true, true);
 		Mesh1P->SetHiddenInGame(false, true);
 	}
+	*/
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -118,12 +128,13 @@ void AMrdanjeCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerI
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	// Bind fire event
-	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AMrdanjeCharacter::OnFire);
-
+	//PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AMrdanjeCharacter::OnFire);
+	/*
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
 
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AMrdanjeCharacter::OnResetVR);
+	*/
 
 	// Bind movement events
 	PlayerInputComponent->BindAxis("MoveForward", this, &AMrdanjeCharacter::MoveForward);
@@ -138,6 +149,27 @@ void AMrdanjeCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerI
 	PlayerInputComponent->BindAxis("LookUpRate", this, &AMrdanjeCharacter::LookUpAtRate);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 void AMrdanjeCharacter::OnFire()
 {
 	// try and fire a projectile
@@ -216,6 +248,19 @@ void AMrdanjeCharacter::EndTouch(const ETouchIndex::Type FingerIndex, const FVec
 	TouchItem.bIsPressed = false;
 }
 
+*/
+
+
+
+
+
+
+
+
+
+
+
+
 //Commenting this section out to be consistent with FPS BP template.
 //This allows the user to turn without using the right virtual joystick
 
@@ -284,6 +329,9 @@ void AMrdanjeCharacter::LookUpAtRate(float Rate)
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
+
+
+/*
 bool AMrdanjeCharacter::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
 {
 	if (FPlatformMisc::SupportsTouchInput() || GetDefault<UInputSettings>()->bUseMouseForTouch)
@@ -298,3 +346,4 @@ bool AMrdanjeCharacter::EnableTouchscreenMovement(class UInputComponent* PlayerI
 	
 	return false;
 }
+*/
