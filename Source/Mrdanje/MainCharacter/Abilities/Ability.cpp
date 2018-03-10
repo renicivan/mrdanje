@@ -2,10 +2,21 @@
 
 #include "Ability.h"
 
-Ability::Ability()
+
+UAbility::UAbility()
+{
+
+}
+
+void UAbility::Init()
 {
 }
 
-Ability::~Ability()
+bool UAbility::NeedToTick()
+{
+	return bNeedToTick;
+}
+
+void UAbility::Tick(float DeltaTime)
 {
 }

@@ -3,13 +3,23 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "UObject/NoExportTypes.h"
+#include "Ability.generated.h"
 
 /**
  * 
  */
-class MRDANJE_API Ability
+UCLASS()
+class MRDANJE_API UAbility : public UObject
 {
+	GENERATED_BODY()
+	
 public:
-	Ability();
-	~Ability();
+	UAbility();
+	void Init();
+	bool NeedToTick();
+	virtual void Tick(float DeltaTime);
+	
+protected:
+	bool bNeedToTick= false;
 };

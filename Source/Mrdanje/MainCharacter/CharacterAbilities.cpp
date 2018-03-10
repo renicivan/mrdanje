@@ -18,46 +18,29 @@ void UCharacterAbilities::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UE_LOG(LogTemp, Warning, TEXT("AAAAAAAAAAAAAaaaaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAA"));
-
+	// Create all the abilities available to the character.
 	Abilities.Empty();
-	UE_LOG(LogTemp, Warning, TEXT("prije %02d"), Abilities.Num());
-
 	for (auto& AbilityAvailable : AbilitiesAvailable)
 	{
-		if (AbilityAvailable == EAbilitiesEnum::VE_Dash)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("dashhhhhhh"));
-		}
-		else if (AbilityAvailable == EAbilitiesEnum::VE_Levitate) {
-			UE_LOG(LogTemp, Warning, TEXT("levitate"));
-			AbilityLevitate* ab = new AbilityLevitate();
-			Abilities.Add(*ab);
-
-			PlayerInputComponent->BindAction("Levitate", IE_Pressed, this, &UCharacterAbilities::Levitate);
-			//PlayerInputComponent->BindAction("Jump", IE_Pressed, this, );
-			//PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
-		}
-		else {
-			UE_LOG(LogTemp, Warning, TEXT("unknown ability"));
-		}
+		CreateAbility(AbilityAvailable);
 	}
-
-
-	UE_LOG(LogTemp, Warning, TEXT("nakon %02d"), Abilities.Num());
-
-	// ...
-	
 }
 
-void UCharacterAbilities::Levitate()
+void UCharacterAbilities::CreateAbility(EAbilitiesEnum Ability)
 {
-	UE_LOG(LogTemp, Warning, TEXT("LEVITATE"));
-}
-
-void UCharacterAbilities::CreateAbilities()
-{
-
+	if (Ability == EAbilitiesEnum::VE_Dash)
+	{
+	}
+	else if (Ability == EAbilitiesEnum::VE_Levitate) {
+		// Create a new Levitation ability
+		UAbilityLevitate* LevitationAbility = NewObject<UAbilityLevitate>();
+		LevitationAbility->Init(PlayerInputComponent, Cast<ACharacter>(GetOwner()));
+		
+		Abilities.Add(LevitationAbility);
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("WARNING: Tried adding an unknown ability to the player."));
+	}
 }
 
 
@@ -66,7 +49,12 @@ void UCharacterAbilities::TickComponent(float DeltaTime, ELevelTick TickType, FA
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	for (auto& Ability: Abilities)
+	{
+		if (Ability->NeedToTick()) {
+			Ability->Tick(DeltaTime);
+		}
+	}
 }
 
 void UCharacterAbilities::SetupPlayerInputComponent(class UInputComponent* CurrentPlayerInputComponent)

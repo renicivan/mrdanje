@@ -3,16 +3,28 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Ability.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "MainCharacter/Abilities/Ability.h"
+#include "AbilityLevitate.generated.h"
 
 /**
  * 
  */
-class MRDANJE_API AbilityLevitate : public Ability
+UCLASS()
+class MRDANJE_API UAbilityLevitate : public UAbility
 {
+	GENERATED_BODY()
+	
 public:
-	AbilityLevitate();
-	~AbilityLevitate();
-
+	UAbilityLevitate();
+	void Init(class UInputComponent* InputComponentUsed, ACharacter* CharacterWithAbility);
+	void Tick(float DeltaTime) override;
+	
+protected:
 	void Levitate();
+	void StopLevitating();
+
+	bool bLevitating;
+	ACharacter* PlayerCharacter;
 };

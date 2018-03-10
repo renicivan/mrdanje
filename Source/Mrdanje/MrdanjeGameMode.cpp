@@ -15,3 +15,13 @@ AMrdanjeGameMode::AMrdanjeGameMode()
 	// use our custom HUD class
 	HUDClass = AMrdanjeHUD::StaticClass();
 }
+
+void AMrdanjeGameMode::RegisterMainCharacter(AMrdanjeCharacter* character)
+{
+	this->MainCharacter = character;
+}
+
+AMrdanjeCharacter* AMrdanjeGameMode::GetMainCharacter()
+{
+	return this->MainCharacter;
+}

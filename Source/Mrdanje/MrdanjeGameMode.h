@@ -13,6 +13,12 @@ class AMrdanjeGameMode : public AGameModeBase
 
 public:
 	AMrdanjeGameMode();
+
+	void RegisterMainCharacter(class AMrdanjeCharacter* character);
+	class AMrdanjeCharacter* GetMainCharacter();
+
+private:
+	AMrdanjeCharacter* MainCharacter;
 };
 
 

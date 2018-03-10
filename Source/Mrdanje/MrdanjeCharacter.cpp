@@ -9,6 +9,7 @@
 #include "GameFramework/InputSettings.h"
 //#include "HeadMountedDisplayFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"
+#include "MrdanjeGameMode.h"
 //#include "MotionControllerComponent.h"
 //#include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 
@@ -49,6 +50,9 @@ AMrdanjeCharacter::AMrdanjeCharacter()
 	ProjectileSpawnLocation->SetRelativeLocation(FVector(0.0f, 48.4f, -1.6f));
 
 	CharacterAbilities = CreateDefaultSubobject<UCharacterAbilities>(TEXT("CharacterAbilities"));
+
+	//AMrdanjeGameMode* CurrentGameMode = Cast<AMrdanjeGameMode>(GetWorld()->GetAuthGameMode());
+	//CurrentGameMode->RegisterMainCharacter(this);
 
 	/*
 	// Create a gun mesh component

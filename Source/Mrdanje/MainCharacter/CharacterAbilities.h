@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Abilities/Ability.h"
 #include "Abilities/AbilityLevitate.h"
 #include "CharacterAbilities.generated.h"
 
@@ -13,7 +14,6 @@ enum class EAbilitiesEnum : uint8
 	VE_Levitate 	UMETA(DisplayName = "Levitate"),
 	VE_Dash			UMETA(DisplayName = "Dash")
 };
-
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class MRDANJE_API UCharacterAbilities : public UActorComponent
@@ -30,18 +30,16 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-	void CreateAbilities();
 
-	TArray<Ability> Abilities;
+	TArray<UAbility*> Abilities;
 	UInputComponent* PlayerInputComponent;
-
-	void Levitate();
+	float CurrentJuice;
+	
+	void CreateAbility(EAbilitiesEnum Ability);
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent);
-
-		
+	void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent);		
 	
 };
