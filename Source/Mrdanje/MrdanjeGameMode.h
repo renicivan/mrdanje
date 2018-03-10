@@ -6,6 +6,15 @@
 #include "GameFramework/GameModeBase.h"
 #include "MrdanjeGameMode.generated.h"
 
+namespace EGameState
+{
+	enum Type
+	{
+		Playing,
+		Finished,
+	};
+}
+
 UCLASS(minimalapi)
 class AMrdanjeGameMode : public AGameModeBase
 {
@@ -17,8 +26,13 @@ public:
 	void RegisterMainCharacter(class AMrdanjeCharacter* character);
 	class AMrdanjeCharacter* GetMainCharacter();
 
+	EGameState::Type GetGameState() const;
+	void StartLevel();
+	void FinishLevel();
+
 private:
 	AMrdanjeCharacter* MainCharacter;
+	EGameState::Type GameState;
 };
 
 

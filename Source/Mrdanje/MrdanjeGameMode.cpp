@@ -25,3 +25,20 @@ AMrdanjeCharacter* AMrdanjeGameMode::GetMainCharacter()
 {
 	return this->MainCharacter;
 }
+
+EGameState::Type AMrdanjeGameMode::GetGameState() const
+{
+	return GameState;
+}
+
+void AMrdanjeGameMode::StartLevel()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Level started!"));
+	GameState = EGameState::Playing;
+}
+
+void AMrdanjeGameMode::FinishLevel()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Level finished!"));
+	GameState = EGameState::Finished;
+}

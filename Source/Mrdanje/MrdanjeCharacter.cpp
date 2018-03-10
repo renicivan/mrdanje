@@ -104,7 +104,8 @@ void AMrdanjeCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
-
+	AMrdanjeGameMode* GameMode = Cast<AMrdanjeGameMode>(GetWorld()->GetAuthGameMode());
+	GameMode->StartLevel();
 	/*
 	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
 	FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));

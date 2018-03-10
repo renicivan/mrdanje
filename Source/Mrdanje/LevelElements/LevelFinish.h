@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h"
+#include "Engine/World.h"
+#include "MrdanjeGameMode.h"
 #include "LevelFinish.generated.h"
 
 UCLASS()

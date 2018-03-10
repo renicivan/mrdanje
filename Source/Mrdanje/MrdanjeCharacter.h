@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "MainCharacter/CharacterAbilities.h"
+#include "Engine/World.h"
+#include "MrdanjeGameMode.h"
 #include "MrdanjeCharacter.generated.h"
 
 class UInputComponent;
