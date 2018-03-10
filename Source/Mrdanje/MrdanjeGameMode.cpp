@@ -41,4 +41,9 @@ void AMrdanjeGameMode::FinishLevel()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Level finished!"));
 	GameState = EGameState::Finished;
+
+	if (MainCharacter != NULL)
+	{
+		MainCharacter->OnLevelFinished();
+	}
 }

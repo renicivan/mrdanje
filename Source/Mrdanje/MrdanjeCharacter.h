@@ -37,6 +37,8 @@ class AMrdanjeCharacter : public ACharacter
 public:
 	AMrdanjeCharacter();
 
+	void OnLevelFinished();
+
 protected:
 	virtual void BeginPlay();
 

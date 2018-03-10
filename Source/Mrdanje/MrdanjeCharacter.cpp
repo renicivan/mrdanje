@@ -105,7 +105,9 @@ void AMrdanjeCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	AMrdanjeGameMode* GameMode = Cast<AMrdanjeGameMode>(GetWorld()->GetAuthGameMode());
+	GameMode->RegisterMainCharacter(this);
 	GameMode->StartLevel();
+
 	/*
 	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
 	FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
@@ -158,6 +160,13 @@ void AMrdanjeCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerI
 	PlayerInputComponent->BindAxis("LookUpRate", this, &AMrdanjeCharacter::LookUpAtRate);
 
 	CharacterAbilities->SetupPlayerInputComponent(PlayerInputComponent);
+}
+
+void AMrdanjeCharacter::OnLevelFinished()
+{
+	//GetMovementComponent()->Deactivate();
+	Cast<UCharacterMovementComponent>(GetMovementComponent())->DisableMovement();
+	UE_LOG(LogTemp, Warning, TEXT("Disabling character movement!"));
 }
 
 
