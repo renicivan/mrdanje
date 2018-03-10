@@ -167,6 +167,9 @@ void AMrdanjeCharacter::OnLevelFinished()
 	//GetMovementComponent()->Deactivate();
 	Cast<UCharacterMovementComponent>(GetMovementComponent())->DisableMovement();
 	UE_LOG(LogTemp, Warning, TEXT("Disabling character movement!"));
+
+	FString LevelName = GetWorld()->GetName();
+	UE_LOG(LogTemp, Warning, TEXT("Current level is %s"), *LevelName);
 }
 
 

@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Kismet/GameplayStatics.h"
+#include "Core/MrdanjeGameInstance.h"
 #include "MrdanjeGameMode.generated.h"
 
 namespace EGameState
