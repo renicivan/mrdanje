@@ -38,6 +38,7 @@ public:
 	AMrdanjeCharacter();
 
 	void OnLevelFinished();
+	USceneComponent* GetProjectileSpawnLocation();
 
 protected:
 	virtual void BeginPlay();

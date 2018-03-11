@@ -172,6 +172,11 @@ void AMrdanjeCharacter::OnLevelFinished()
 	UE_LOG(LogTemp, Warning, TEXT("Current level is %s"), *LevelName);
 }
 
+USceneComponent* AMrdanjeCharacter::GetProjectileSpawnLocation()
+{
+	return ProjectileSpawnLocation;
+}
+
 
 
 

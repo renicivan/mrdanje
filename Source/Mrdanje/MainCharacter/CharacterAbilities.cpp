@@ -32,13 +32,21 @@ void UCharacterAbilities::CreateAbility(EAbilitiesEnum Ability)
 	{
 	}
 	else if (Ability == EAbilitiesEnum::VE_Levitate) {
+		UE_LOG(LogTemp, Warning, TEXT("Adding Levitate ability to the character."));
 		// Create a new Levitation ability
 		UAbilityLevitate* LevitationAbility = NewObject<UAbilityLevitate>();
 		LevitationAbility->Init(PlayerInputComponent, Cast<ACharacter>(GetOwner()));
 		
 		Abilities.Add(LevitationAbility);
 	}
-	else {
+	else if (Ability == EAbilitiesEnum::VE_FloorBomb) {
+		UE_LOG(LogTemp, Warning, TEXT("Adding Floor Bomb ability to the character."));
+		// Create a new Floor Bomb ability
+		UAbilityFloorBomb* FloorBombAbility = NewObject<UAbilityFloorBomb>();
+		FloorBombAbility->Init(PlayerInputComponent, Cast<ACharacter>(GetOwner()));
+
+		Abilities.Add(FloorBombAbility);
+	} else {
 		UE_LOG(LogTemp, Warning, TEXT("WARNING: Tried adding an unknown ability to the player."));
 	}
 }

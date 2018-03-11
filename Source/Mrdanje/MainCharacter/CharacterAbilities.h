@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Abilities/Ability.h"
+#include "Abilities/AbilityFloorBomb.h"
 #include "Abilities/AbilityLevitate.h"
 #include "CharacterAbilities.generated.h"
 
@@ -12,7 +13,8 @@ UENUM(BlueprintType)
 enum class EAbilitiesEnum : uint8
 {
 	VE_Levitate 	UMETA(DisplayName = "Levitate"),
-	VE_Dash			UMETA(DisplayName = "Dash")
+	VE_Dash			UMETA(DisplayName = "Dash"),
+	VE_FloorBomb	UMETA(DisplayName = "Floor Bomb")
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
