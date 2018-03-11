@@ -5,18 +5,17 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h"
-#include "Engine/World.h"
-#include "MrdanjeGameMode.h"
-#include "LevelFinish.generated.h"
+#include "MrdanjeCharacter.h"
+#include "Sunlight.generated.h"
 
 UCLASS()
-class MRDANJE_API ALevelFinish : public AActor
+class MRDANJE_API ASunlight : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ALevelFinish();
+	ASunlight();
 
 protected:
 	// Called when the game starts or when spawned
@@ -25,11 +24,10 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	UBoxComponent* BoxCollision;
 
-	
-
 public:
 	UFUNCTION()
 	void OnTestOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-	
-	
+
+	UFUNCTION()
+	void OnTestOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 };

@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "GameFramework/CharacterMovementComponent.h"
+//#include "GameFramework/Character.h"
+//#include "GameFramework/CharacterMovementComponent.h"
 #include "MainCharacter/Abilities/Ability.h"
 #include "AbilityLevitate.generated.h"
 
@@ -18,7 +18,7 @@ class MRDANJE_API UAbilityLevitate : public UAbility
 	
 public:
 	UAbilityLevitate();
-	void Init(class UInputComponent* InputComponentUsed, ACharacter* CharacterWithAbility);
+	void Init(class UInputComponent* InputComponentUsed, ACharacter* CharacterWithAbility, class UCharacterAbilities* AbilityManager);
 	void Tick(float DeltaTime) override;
 	
 protected:
@@ -27,4 +27,5 @@ protected:
 
 	bool bLevitating;
 	ACharacter* PlayerCharacter;
+	float PowerUsedPerSecond = 50.0f;
 };

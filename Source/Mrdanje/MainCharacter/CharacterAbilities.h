@@ -35,13 +35,17 @@ protected:
 
 	TArray<UAbility*> Abilities;
 	UInputComponent* PlayerInputComponent;
-	float CurrentJuice;
+	float MaxPower;
+	float CurrentPower;
+	bool bStandingInSunlight;
+	float PowerRecoveryPerSecond;
 	
 	void CreateAbility(EAbilitiesEnum Ability);
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent);		
-	
+	void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent);
+	void AddPower(float PowerDelta);
+	void SetStandingInSunlight(bool StandingInSunlight);
 };

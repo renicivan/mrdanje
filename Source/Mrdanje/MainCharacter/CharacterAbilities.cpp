@@ -18,6 +18,10 @@ void UCharacterAbilities::BeginPlay()
 {
 	Super::BeginPlay();
 
+	MaxPower= 100.0f;
+	CurrentPower = MaxPower;
+	PowerRecoveryPerSecond = 30.0f;
+
 	// Create all the abilities available to the character.
 	Abilities.Empty();
 	for (auto& AbilityAvailable : AbilitiesAvailable)
@@ -35,7 +39,7 @@ void UCharacterAbilities::CreateAbility(EAbilitiesEnum Ability)
 		UE_LOG(LogTemp, Warning, TEXT("Adding Levitate ability to the character."));
 		// Create a new Levitation ability
 		UAbilityLevitate* LevitationAbility = NewObject<UAbilityLevitate>();
-		LevitationAbility->Init(PlayerInputComponent, Cast<ACharacter>(GetOwner()));
+		LevitationAbility->Init(PlayerInputComponent, Cast<ACharacter>(GetOwner()), this);
 		
 		Abilities.Add(LevitationAbility);
 	}
@@ -43,7 +47,7 @@ void UCharacterAbilities::CreateAbility(EAbilitiesEnum Ability)
 		UE_LOG(LogTemp, Warning, TEXT("Adding Floor Bomb ability to the character."));
 		// Create a new Floor Bomb ability
 		UAbilityFloorBomb* FloorBombAbility = NewObject<UAbilityFloorBomb>();
-		FloorBombAbility->Init(PlayerInputComponent, Cast<ACharacter>(GetOwner()));
+		FloorBombAbility->Init(PlayerInputComponent, Cast<ACharacter>(GetOwner()), this);
 
 		Abilities.Add(FloorBombAbility);
 	} else {
@@ -63,9 +67,37 @@ void UCharacterAbilities::TickComponent(float DeltaTime, ELevelTick TickType, FA
 			Ability->Tick(DeltaTime);
 		}
 	}
+
+	if (bStandingInSunlight)
+	{
+		AddPower(PowerRecoveryPerSecond * DeltaTime);
+	}
 }
 
 void UCharacterAbilities::SetupPlayerInputComponent(class UInputComponent* CurrentPlayerInputComponent)
 {
 	PlayerInputComponent = CurrentPlayerInputComponent;
+}
+
+void UCharacterAbilities::AddPower(float PowerDelta)
+{
+	CurrentPower = FMath::Clamp(CurrentPower + PowerDelta, 0.0f, MaxPower);
+
+	for (auto& Ability : Abilities)
+	{
+		if (!Ability->IsActive() && CurrentPower > Ability->PowerNeededToActivate()) {
+			Ability->SetActive(true);
+		}
+		else if (Ability->IsActive() && CurrentPower < Ability->PowerNeededToActivate())
+		{
+			Ability->SetActive(false);
+		}
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT("%2.2f power added! Current power: %2.2f"), PowerDelta, CurrentPower);
+}
+
+void UCharacterAbilities::SetStandingInSunlight(bool StandingInSunlight)
+{
+	bStandingInSunlight = StandingInSunlight;
 }

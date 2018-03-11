@@ -8,7 +8,7 @@ UAbility::UAbility()
 
 }
 
-void UAbility::Init()
+void UAbility::Init(class UInputComponent* InputComponentUsed, ACharacter* CharacterWithAbility, class UCharacterAbilities* AbilityManager)
 {
 }
 
@@ -19,4 +19,19 @@ bool UAbility::NeedToTick()
 
 void UAbility::Tick(float DeltaTime)
 {
+}
+
+void UAbility::SetActive(bool Active)
+{
+	bActive = Active;
+}
+
+bool UAbility::IsActive()
+{
+	return bActive;
+}
+
+float UAbility::PowerNeededToActivate()
+{
+	return MinPowerNeeded;
 }

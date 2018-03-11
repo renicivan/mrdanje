@@ -1,25 +1,35 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "AbilityFloorBomb.h"
+#include "MainCharacter/CharacterAbilities.h"
 
 
 UAbilityFloorBomb::UAbilityFloorBomb()
 {
 }
 
-void UAbilityFloorBomb::Init(class UInputComponent* InputComponentUsed, ACharacter* CharacterWithAbility)
+void UAbilityFloorBomb::Init(class UInputComponent* InputComponentUsed, ACharacter* CharacterWithAbility, UCharacterAbilities* AbilityManager)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Floor bomb INITIALIZED!"));
 	InputComponentUsed->BindAction("FloorBomb", IE_Pressed, this, &UAbilityFloorBomb::Trigger);
 
 	PlayerCharacter = CharacterWithAbility;
+	MinPowerNeeded = 60.0f;
+
+	this->AbilityManager = AbilityManager;
 }
 
 void UAbilityFloorBomb::Trigger()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Floor bomb activity triggered!"));
+	if (bActive)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Floor bomb activity triggered!"));
 
-	FireBomb();
+		FireBomb();
+
+		AbilityManager->AddPower(-MinPowerNeeded);
+	}
+	
 
 	/*if (!ActiveProjectile) {
 		FireBomb();

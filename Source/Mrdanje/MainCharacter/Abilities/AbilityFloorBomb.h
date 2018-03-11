@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "GameFramework/CharacterMovementComponent.h"
+//#include "GameFramework/Character.h"
+//#include "GameFramework/CharacterMovementComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Weapons/FloorBomb.h"
 #include "ConstructorHelpers.h"
@@ -39,7 +39,7 @@ class MRDANJE_API UAbilityFloorBomb : public UAbility
 	
 public:
 	UAbilityFloorBomb();
-	void Init(class UInputComponent* InputComponentUsed, ACharacter* CharacterWithAbility);
+	void Init(class UInputComponent* InputComponentUsed, ACharacter* CharacterWithAbility, class UCharacterAbilities* AbilityManager);
 	void Tick(float DeltaTime) override;
 	
 protected:

@@ -177,7 +177,18 @@ USceneComponent* AMrdanjeCharacter::GetProjectileSpawnLocation()
 	return ProjectileSpawnLocation;
 }
 
-
+void AMrdanjeCharacter::SetStandingInSunlight(bool StandingInSunlight)
+{
+	if (StandingInSunlight)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("++++++++++++++++++++++++ PLAYER STANDING IN THE SUNLIGHTTTTTTTTTTT!"));
+	} else {
+		UE_LOG(LogTemp, Warning, TEXT("------------------------ player NOT standing in the sunlight!!!!!!!!!!!!!!!!"));
+	}
+	
+	bStandingInSunlight = StandingInSunlight;
+	CharacterAbilities->SetStandingInSunlight(bStandingInSunlight);
+}
 
 
 
