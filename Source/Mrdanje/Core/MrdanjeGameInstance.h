@@ -20,10 +20,13 @@ public:
 
 	int GetCurrentLevel();
 	void OnLevelFinished();
+	void AddPower(float PowerDelta);
+	float GetPowerReserve();
 	
 private:
 	int CurrentLevel;
 	TArray<FString> MapOrder;
+	float PowerReserve;
 
 	void CreateMapOrder();
 	

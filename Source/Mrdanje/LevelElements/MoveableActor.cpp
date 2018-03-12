@@ -110,6 +110,11 @@ void AMoveableActor::Tick(float DeltaTime)
 			WaitTimeLeft = 0.0f;
 			bWaitingOnCheckpoint = false;
 		}
+
+		if (bNeedToReverse)
+		{
+			ExecuteReverse();
+		}
 	}
 	else
 	{
@@ -142,6 +147,21 @@ void AMoveableActor::Tick(float DeltaTime)
 
 void AMoveableActor::Reverse()
 {
+	/*UE_LOG(LogTemp, Warning, TEXT("reeeeeeeeeeeeverse meeeeeeeeeee"));
+
+	Algo::Reverse(Checkpoints);
+	LastCheckpoint = Checkpoints.Num() - ((LastCheckpoint + 1) % Checkpoints.Num()) - 1;
+
+	if (bWaitingOnCheckpoint)
+	{
+		LastCheckpoint = (LastCheckpoint + 1) % Checkpoints.Num();
+	}*/
+
+	bNeedToReverse = true;
+}
+
+void AMoveableActor::ExecuteReverse()
+{
 	UE_LOG(LogTemp, Warning, TEXT("reeeeeeeeeeeeverse meeeeeeeeeee"));
 
 	Algo::Reverse(Checkpoints);
@@ -151,6 +171,8 @@ void AMoveableActor::Reverse()
 	{
 		LastCheckpoint = (LastCheckpoint + 1) % Checkpoints.Num();
 	}
+
+	bNeedToReverse = false;
 }
 
 ETileTypesEnum AMoveableActor::GetTileType()

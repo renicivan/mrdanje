@@ -37,13 +37,14 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	void InitTilePropertySets();
+	void ExecuteReverse();
 
 	ETileTypesEnum CurrentTileType;
 	bool bShouldMove = true;
 	int LastCheckpoint;
 	bool bWaitingOnCheckpoint = false;
+	bool bNeedToReverse = false;
 	float WaitTimeLeft;
-
 	TMap<ETileTypesEnum, FTileProperties> TileProperties;
 
 public:	

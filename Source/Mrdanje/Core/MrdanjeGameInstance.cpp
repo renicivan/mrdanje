@@ -6,6 +6,7 @@ UMrdanjeGameInstance::UMrdanjeGameInstance(const FObjectInitializer& ObjectIniti
 	: Super(ObjectInitializer)
 {
 	CurrentLevel = 0;
+	PowerReserve = 100.0f;
 
 	CreateMapOrder();
 }
@@ -14,7 +15,7 @@ void UMrdanjeGameInstance::CreateMapOrder()
 {
 	// Create map order
 	MapOrder.Add("TestLevel");
-	MapOrder.Add("L0102");
+	MapOrder.Add("L0101");
 }
 
 void UMrdanjeGameInstance::OnLevelFinished()
@@ -34,4 +35,20 @@ void UMrdanjeGameInstance::OnLevelFinished()
 int UMrdanjeGameInstance::GetCurrentLevel()
 {
 	return CurrentLevel;
+}
+
+void UMrdanjeGameInstance::AddPower(float PowerDelta)
+{
+	PowerReserve += PowerDelta;
+	UE_LOG(LogTemp, Warning, TEXT("Current power reserves at %.2f!"), PowerReserve);
+
+	if (PowerReserve <= 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("G A M E   O V E R !"));
+	}
+}
+
+float UMrdanjeGameInstance::GetPowerReserve()
+{
+	return PowerReserve;
 }

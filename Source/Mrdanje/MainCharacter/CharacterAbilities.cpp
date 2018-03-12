@@ -28,6 +28,8 @@ void UCharacterAbilities::BeginPlay()
 	{
 		CreateAbility(AbilityAvailable);
 	}
+
+	UE_LOG(LogTemp, Warning, TEXT("Current POWER is %.2f."), CurrentPower);
 }
 
 void UCharacterAbilities::CreateAbility(EAbilitiesEnum Ability)
@@ -95,9 +97,9 @@ void UCharacterAbilities::SetupPlayerInputComponent(class UInputComponent* Curre
 
 void UCharacterAbilities::AddPower(float PowerDelta)
 {
-	CurrentPower = FMath::Clamp(CurrentPower + PowerDelta, 0.0f, MaxPower);
+	//CurrentPower = FMath::Clamp(CurrentPower + PowerDelta, 0.0f, MaxPower);
 
-	for (auto& Ability : Abilities)
+	/*for (auto& Ability : Abilities)
 	{
 		if (!Ability->IsActive() && CurrentPower > Ability->PowerNeededToActivate()) {
 			Ability->SetActive(true);
@@ -106,6 +108,15 @@ void UCharacterAbilities::AddPower(float PowerDelta)
 		{
 			Ability->SetActive(false);
 		}
+	}*/
+
+	CurrentPower += PowerDelta;
+
+	if (CurrentPower < 0)
+	{
+		UMrdanjeGameInstance* GameInstance = Cast<UMrdanjeGameInstance>(GetOwner()->GetGameInstance());
+		GameInstance->AddPower(CurrentPower);
+		CurrentPower = 0;
 	}
 
 	UE_LOG(LogTemp, Warning, TEXT("%2.2f power added! Current power: %2.2f"), PowerDelta, CurrentPower);

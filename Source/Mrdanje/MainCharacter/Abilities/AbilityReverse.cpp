@@ -30,6 +30,6 @@ void UAbilityReverse::Reverse()
 			}
 		}
 
-		//AbilityManager->AddPower(-MinPowerNeeded);
+		AbilityManager->AddPower(-MinPowerNeeded);
 	}
 }

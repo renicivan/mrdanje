@@ -37,6 +37,9 @@ void AMrdanjeGameMode::StartLevel()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Level started!"));
 	GameState = EGameState::Playing;
+
+	UMrdanjeGameInstance* GameInstance = Cast<UMrdanjeGameInstance>(GetGameInstance());
+	UE_LOG(LogTemp, Warning, TEXT("Power reserve at %.2f!"), GameInstance->GetPowerReserve());
 }
 
 void AMrdanjeGameMode::FinishLevel()

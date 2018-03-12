@@ -9,6 +9,7 @@
 #include "Abilities/AbilityLevitate.h"
 #include "Abilities/AbilityReverseRed.h"
 #include "Abilities/AbilityReverseBlue.h"
+#include "Core/MrdanjeGameInstance.h"
 #include "CharacterAbilities.generated.h"
 
 UENUM(BlueprintType)
