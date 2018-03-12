@@ -52,12 +52,15 @@ void AToggleableTile::SetState(bool Filled)
 {
 	if (Filled)
 	{
-		FillMesh->SetWorldScale3D(EmptyMesh->GetComponentScale());
+		FillMesh->SetRelativeScale3D(EmptyMesh->GetComponentScale());
 	}
 	else
 	{
-		FillMesh->SetWorldScale3D(FVector(0.0f, 0.0f, 0.0f));
+		FillMesh->SetRelativeScale3D(FVector(0.0f, 0.0f, 0.0f));
 	}
+
+	FillMesh->SetRelativeLocation(FVector(0, 0, 0));
+	//FillMesh->SetRelativeScale3D
 
 	bFilled = Filled;
 }

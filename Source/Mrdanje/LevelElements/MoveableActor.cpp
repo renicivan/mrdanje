@@ -10,7 +10,7 @@ AMoveableActor::AMoveableActor()
 	PrimaryActorTick.bCanEverTick = true;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	Mesh->SetCollisionResponseToAllChannels(ECR_Ignore);
+	Mesh->SetCollisionResponseToAllChannels(ECR_Overlap);
 	Mesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Block);
 	Mesh->SetupAttachment(GetRootComponent());
 

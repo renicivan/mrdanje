@@ -77,12 +77,12 @@ void UCharacterAbilities::TickComponent(float DeltaTime, ELevelTick TickType, FA
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	for (UAbility* Ability: Abilities)
+	/*for (UAbility* Ability: Abilities)
 	{
 		if (Ability->NeedToTick()) {
 			Ability->Tick(DeltaTime);
 		}
-	}
+	}*/
 
 	if (bStandingInSunlight)
 	{
