@@ -23,24 +23,28 @@ void AMoveableActor::InitTilePropertySets()
 	FTileProperties White;
 	White.WaitCycles = 1;
 	White.CycleDuration = 2.0f;
+	White.MaterialPath = "Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_WhiteTile.M_WhiteTile'";
 	TileProperties.Add(ETileTypesEnum::VE_White, White);
 
 	// Red tile properties
 	FTileProperties Red;
 	Red.WaitCycles = 1;
 	Red.CycleDuration = 2.0f;
+	Red.MaterialPath = "Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_RedTile.M_RedTile'";
 	TileProperties.Add(ETileTypesEnum::VE_Red, Red);
 
 	// Blue tile properties
 	FTileProperties Blue;
 	Blue.WaitCycles = 1;
 	Blue.CycleDuration = 2.0f;
+	Blue.MaterialPath = "Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_BlueTile.M_BlueTile'";
 	TileProperties.Add(ETileTypesEnum::VE_Blue, Blue);
 
 	// Yellow tile properties
 	FTileProperties Yellow;
 	Yellow.WaitCycles = 1;
 	Yellow.CycleDuration = 2.0f;
+	Yellow.MaterialPath = "Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_YellowTile.M_YellowTile'";
 	TileProperties.Add(ETileTypesEnum::VE_Yellow, Yellow);
 }
 
@@ -61,11 +65,13 @@ void AMoveableActor::BeginPlay()
 	SetActorLocation(InitialCheckpoint->GetActorLocation());
 
 	LastCheckpoint = StartCheckpoint;
+
+	SetTileProperties(TileType, true);
 }
 
-void AMoveableActor::SetTileProperties(ETileTypesEnum TileType)
+void AMoveableActor::SetTileProperties(ETileTypesEnum TileType, bool Force = false)
 {
-	if (CurrentTileType == TileType)
+	if (CurrentTileType == TileType && !Force)
 	{
 		return;
 	}
@@ -73,7 +79,15 @@ void AMoveableActor::SetTileProperties(ETileTypesEnum TileType)
 	FTileProperties* NewProperties = TileProperties.Find(TileType);
 
 	// Apply new tile properties
+	//ConstructorHelpers::FObjectFinder<UMaterial> ReferenceVariable(*NewProperties->MaterialPath);
+	//TCHAR* Path = ;
+	//ConstructorHelpers::FObjectFinder<UMaterial> ReferenceVariable(_T("Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_WhiteTile.M_WhiteTile'"));
+	UMaterial* NewMaterial = Cast<UMaterial>(StaticLoadObject(UMaterial::StaticClass(), NULL, *NewProperties->MaterialPath));
 
+
+	//USkeletalMesh* skeletalMesh = Cast<USkeletalMesh>(StaticLoadObject(USkeletalMesh::StaticClass(), NULL, TEXT("SkeletalMesh'/Game/Dir/abc.abc'")));
+	Mesh->SetMaterial(0, NewMaterial);
+	
 	CurrentTileType = TileType;
 }
 

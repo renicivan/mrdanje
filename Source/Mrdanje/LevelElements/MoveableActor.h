@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "UObject/ConstructorHelpers.h"
+#include "Materials/Material.h"
 #include "MoveableActor.generated.h"
 
 UENUM(BlueprintType)
@@ -18,6 +20,7 @@ enum class ETileTypesEnum : uint8
 struct FTileProperties {
 	int WaitCycles;
 	float CycleDuration;
+	FString MaterialPath;
 };
 
 UCLASS()
@@ -45,7 +48,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	void SetTileProperties(ETileTypesEnum TileType);
+	void SetTileProperties(ETileTypesEnum TileType, bool Force);
 
 	UPROPERTY(Category = Meshes, VisibleAnywhere)
 	UStaticMeshComponent* Mesh;
