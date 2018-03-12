@@ -140,3 +140,20 @@ void AMoveableActor::Tick(float DeltaTime)
 	}
 }
 
+void AMoveableActor::Reverse()
+{
+	UE_LOG(LogTemp, Warning, TEXT("reeeeeeeeeeeeverse meeeeeeeeeee"));
+
+	Algo::Reverse(Checkpoints);
+	LastCheckpoint = Checkpoints.Num() - ((LastCheckpoint + 1) % Checkpoints.Num()) - 1;
+
+	if (bWaitingOnCheckpoint)
+	{
+		LastCheckpoint = (LastCheckpoint + 1) % Checkpoints.Num();
+	}
+}
+
+ETileTypesEnum AMoveableActor::GetTileType()
+{
+	return TileType;
+}

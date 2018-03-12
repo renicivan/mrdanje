@@ -14,6 +14,7 @@ void UAbilityReverse::Init(class UInputComponent* InputComponentUsed, ACharacter
 	MinPowerNeeded = 20.0f;
 
 	this->AbilityManager = AbilityManager;
+	PlayerCharacter = CharacterWithAbility;
 }
 
 void UAbilityReverse::Reverse()
@@ -21,6 +22,14 @@ void UAbilityReverse::Reverse()
 	if (bActive)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("REVERSING %02d!"), TileColor);
-		AbilityManager->AddPower(-MinPowerNeeded);
+		for (TActorIterator<AMoveableActor> ActorItr(PlayerCharacter->GetWorld()); ActorItr; ++ActorItr)
+		{
+			if (ActorItr->GetTileType() == this->TileType)
+			{
+				ActorItr->Reverse();
+			}
+		}
+
+		//AbilityManager->AddPower(-MinPowerNeeded);
 	}
 }

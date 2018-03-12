@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EngineUtils.h"
 #include "MainCharacter/Abilities/Ability.h"
 #include "LevelElements/MoveableActor.h"
 #include "AbilityReverse.generated.h"
@@ -24,5 +25,6 @@ protected:
 
 	ETileTypesEnum TileType;
 	int TileColor;
+	ACharacter* PlayerCharacter;
 	class UCharacterAbilities* AbilityManager;
 };

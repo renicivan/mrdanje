@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Algo/Reverse.h"
 #include "Materials/Material.h"
 #include "MoveableActor.generated.h"
 
@@ -49,6 +50,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	void SetTileProperties(ETileTypesEnum TileType, bool Force);
+	void Reverse();
+	ETileTypesEnum GetTileType();
 
 	UPROPERTY(Category = Meshes, VisibleAnywhere)
 	UStaticMeshComponent* Mesh;
