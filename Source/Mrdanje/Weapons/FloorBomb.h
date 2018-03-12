@@ -3,9 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Core/Utilities.h"
 #include "GameFramework/Actor.h"
 #include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "FloorBombTile.h"
 #include "ConstructorHelpers.h"
 #include "FloorBomb.generated.h"
 
@@ -21,7 +23,7 @@ public:
 	UPROPERTY(Category = Meshes, VisibleAnywhere)
 	UStaticMeshComponent* ProjectileMesh;
 
-	TSubclassOf<class AFloorBomb> ProjectileBlueprint;
+	//TSubclassOf<class AFloorBomb> ProjectileBlueprint;
 
 protected:
 	// Called when the game starts or when spawned
@@ -32,6 +34,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION()
-	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);	
+	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+	void Detonate();
 	
 };

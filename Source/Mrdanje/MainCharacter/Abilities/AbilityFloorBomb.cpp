@@ -14,7 +14,7 @@ void UAbilityFloorBomb::Init(class UInputComponent* InputComponentUsed, ACharact
 	InputComponentUsed->BindAction("FloorBomb", IE_Pressed, this, &UAbilityFloorBomb::Trigger);
 
 	PlayerCharacter = CharacterWithAbility;
-	MinPowerNeeded = 60.0f;
+	MinPowerNeeded = 20.0f;
 
 	this->AbilityManager = AbilityManager;
 }
@@ -25,9 +25,12 @@ void UAbilityFloorBomb::Trigger()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Floor bomb activity triggered!"));
 
-		FireBomb();
-
-		AbilityManager->AddPower(-MinPowerNeeded);
+		if (!ActiveProjectile) {
+			FireBomb();
+		}
+		else {
+			ExplodeBomb();
+		}
 	}
 	
 
@@ -44,16 +47,18 @@ void UAbilityFloorBomb::FireBomb()
 	UE_LOG(LogTemp, Warning, TEXT("Spawning floor bomb!"));
 
 	
-	UObject* ProjectileBP = StaticLoadObject(UObject::StaticClass(), nullptr, TEXT("/Game/Mrdanje/Weapons/FloorBomb/BP_FloorBomb"));
+	/*UObject* ProjectileBP = StaticLoadObject(UObject::StaticClass(), nullptr, TEXT("/Game/Mrdanje/Weapons/FloorBomb/BP_FloorBomb"));
 	UBlueprint* bp = Cast<UBlueprint>(ProjectileBP);
 	TSubclassOf<class AFloorBomb> ProjectileBlueprint;
-	ProjectileBlueprint = (UClass*)bp->GeneratedClass;
+	ProjectileBlueprint = (UClass*)bp->GeneratedClass;*/
 
 	FVector Location = PlayerCharacter->GetActorLocation();
 	FRotator Rotation = FRotator(0);
 	UWorld* World = PlayerCharacter->GetWorld();
 
-	ActiveProjectile = SpawnBlueprint<AFloorBomb>(World, ProjectileBlueprint, Location, Rotation, true, PlayerCharacter, NULL);
+	ActiveProjectile = Utilities::SpawnBlueprint<AFloorBomb>("/Game/Mrdanje/Weapons/FloorBomb/BP_FloorBomb", World, Location, Rotation, PlayerCharacter);
+
+	//ActiveProjectile = SpawnBlueprint<AFloorBomb>(World, ProjectileBlueprint, Location, Rotation, true, PlayerCharacter, NULL);
 	
 
 	
@@ -66,11 +71,14 @@ void UAbilityFloorBomb::FireBomb()
 	ForceVector.Z += 20000.0f;
 
 	bNeedToTick = true;
+	AbilityManager->AddPower(-MinPowerNeeded);
 }
 
 void UAbilityFloorBomb::ExplodeBomb()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Detonating projectile!!"));
+	ActiveProjectile->Detonate();
+	ActiveProjectile = NULL;
 }
 
 void UAbilityFloorBomb::Tick(float DeltaTime)
