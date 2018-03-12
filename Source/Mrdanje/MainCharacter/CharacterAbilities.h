@@ -7,14 +7,17 @@
 #include "Abilities/Ability.h"
 #include "Abilities/AbilityFloorBomb.h"
 #include "Abilities/AbilityLevitate.h"
+#include "Abilities/AbilityReverseRed.h"
+#include "Abilities/AbilityReverseBlue.h"
 #include "CharacterAbilities.generated.h"
 
 UENUM(BlueprintType)
 enum class EAbilitiesEnum : uint8
 {
 	VE_Levitate 	UMETA(DisplayName = "Levitate"),
-	VE_Dash			UMETA(DisplayName = "Dash"),
-	VE_FloorBomb	UMETA(DisplayName = "Floor Bomb")
+	VE_FloorBomb	UMETA(DisplayName = "Floor Bomb"),
+	VE_ReverseRed	UMETA(DisplayName = "Reverse Red"),
+	VE_ReverseBlue	UMETA(DisplayName = "Reverse Blue")
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )

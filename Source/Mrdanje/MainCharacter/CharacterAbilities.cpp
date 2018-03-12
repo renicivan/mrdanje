@@ -32,10 +32,7 @@ void UCharacterAbilities::BeginPlay()
 
 void UCharacterAbilities::CreateAbility(EAbilitiesEnum Ability)
 {
-	if (Ability == EAbilitiesEnum::VE_Dash)
-	{
-	}
-	else if (Ability == EAbilitiesEnum::VE_Levitate) {
+	if (Ability == EAbilitiesEnum::VE_Levitate) {
 		UE_LOG(LogTemp, Warning, TEXT("Adding Levitate ability to the character."));
 		// Create a new Levitation ability
 		UAbilityLevitate* LevitationAbility = NewObject<UAbilityLevitate>();
@@ -50,7 +47,24 @@ void UCharacterAbilities::CreateAbility(EAbilitiesEnum Ability)
 		FloorBombAbility->Init(PlayerInputComponent, Cast<ACharacter>(GetOwner()), this);
 
 		Abilities.Add(FloorBombAbility);
-	} else {
+	}
+	else if (Ability == EAbilitiesEnum::VE_ReverseRed) {
+		UE_LOG(LogTemp, Warning, TEXT("Adding Reverse Red ability to the character."));
+		// Create a new Reverse Red ability
+		UAbilityReverseRed* ReverseRedAbility = NewObject<UAbilityReverseRed>();
+		ReverseRedAbility->Init(PlayerInputComponent, Cast<ACharacter>(GetOwner()), this);
+
+		Abilities.Add(ReverseRedAbility);
+	}
+	else if (Ability == EAbilitiesEnum::VE_ReverseBlue) {
+		UE_LOG(LogTemp, Warning, TEXT("Adding Reverse Blue ability to the character."));
+		// Create a new Reverse Blue ability
+		UAbilityReverseBlue* ReverseBlueAbility = NewObject<UAbilityReverseBlue>();
+		ReverseBlueAbility->Init(PlayerInputComponent, Cast<ACharacter>(GetOwner()), this);
+
+		Abilities.Add(ReverseBlueAbility);
+	}
+	else {
 		UE_LOG(LogTemp, Warning, TEXT("WARNING: Tried adding an unknown ability to the player."));
 	}
 }
