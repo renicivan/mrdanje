@@ -7,6 +7,7 @@
 #include "UObject/ConstructorHelpers.h"
 #include "Algo/Reverse.h"
 #include "Materials/Material.h"
+#include "TileCheckpoint.h"
 #include "MoveableActor.generated.h"
 
 UENUM(BlueprintType)
@@ -58,7 +59,8 @@ public:
 	UStaticMeshComponent* Mesh;
 
 	UPROPERTY(EditAnywhere)
-	TArray<AActor*> Checkpoints;
+	//TArray<AActor*> Checkpoints;
+	TArray<ATileCheckpoint*> Checkpoints;
 
 	UPROPERTY(EditAnywhere)
 	int StartCheckpoint;
