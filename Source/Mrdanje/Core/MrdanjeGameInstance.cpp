@@ -40,6 +40,7 @@ int UMrdanjeGameInstance::GetCurrentLevel()
 void UMrdanjeGameInstance::AddPower(float PowerDelta)
 {
 	PowerReserve += PowerDelta;
+	UE_LOG(LogTemp, Warning, TEXT("ADDED %.2f POWER!"), PowerDelta);
 	UE_LOG(LogTemp, Warning, TEXT("Current power reserves at %.2f!"), PowerReserve);
 
 	if (PowerReserve <= 0)
