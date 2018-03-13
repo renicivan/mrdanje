@@ -46,6 +46,13 @@ void UMrdanjeGameInstance::AddPower(float PowerDelta)
 
 	if (PowerReserve <= 0)
 	{
+		PowerReserve = 0.f;
+
+		if (!bTutorializedGameOver)
+		{
+			PrintMessageToScreen("Running out of reserve power would usually be game over, but this is a demo.", 180);
+			bTutorializedGameOver = true;
+		}
 		UE_LOG(LogTemp, Warning, TEXT("G A M E   O V E R !"));
 	}
 }

@@ -30,6 +30,7 @@ private:
 	int CurrentLevel;
 	TArray<FString> MapOrder;
 	float PowerReserve;
+	bool bTutorializedGameOver = false;
 
 	void CreateMapOrder();
 	
