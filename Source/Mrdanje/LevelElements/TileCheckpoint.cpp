@@ -19,3 +19,8 @@ void ATileCheckpoint::BeginPlay()
 	Super::BeginPlay();
 	
 }
+
+TArray<FCheckpointCommandStruct> ATileCheckpoint::GetCommands()
+{
+	return Commands;
+}

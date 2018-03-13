@@ -6,6 +6,26 @@
 #include "GameFramework/Actor.h"
 #include "TileCheckpoint.generated.h"
 
+UENUM(BlueprintType)
+enum class ECheckpointCommandsEnum : uint8
+{
+	VE_Stay 	UMETA(DisplayName = "Stay"),
+	VE_Go		UMETA(DisplayName = "Go")
+};
+
+USTRUCT(BlueprintType)
+struct FCheckpointCommandStruct
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ECheckpointCommandsEnum Command;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Duration;
+	// SOUND TO PLAY
+};
+
 UCLASS()
 class MRDANJE_API ATileCheckpoint : public AActor
 {
@@ -14,9 +34,13 @@ class MRDANJE_API ATileCheckpoint : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ATileCheckpoint();
+	TArray<FCheckpointCommandStruct> GetCommands();
 
 	UPROPERTY(Category = Meshes, VisibleAnywhere)
 	UStaticMeshComponent* CheckpointMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<struct FCheckpointCommandStruct> Commands;
 
 protected:
 	// Called when the game starts or when spawned

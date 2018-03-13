@@ -39,6 +39,7 @@ protected:
 	virtual void BeginPlay() override;
 	void InitTilePropertySets();
 	void ExecuteReverse();
+	void CheckForReverse();
 
 	ETileTypesEnum CurrentTileType;
 	bool bShouldMove = true;
@@ -47,6 +48,11 @@ protected:
 	bool bNeedToReverse = false;
 	float WaitTimeLeft;
 	TMap<ETileTypesEnum, FTileProperties> TileProperties;
+	TArray<FCheckpointCommandStruct> ActiveCommands;
+	int CurrentCommandIndex;
+	float CurrentCommandTimeLeft;
+
+	void PrintActiveCommands();
 
 public:	
 	// Called every frame

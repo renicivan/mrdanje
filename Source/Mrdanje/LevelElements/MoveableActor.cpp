@@ -8,6 +8,7 @@ AMoveableActor::AMoveableActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	bAllowTickBeforeBeginPlay = false;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->SetCollisionResponseToAllChannels(ECR_Overlap);
@@ -61,10 +62,13 @@ void AMoveableActor::BeginPlay()
 
 	StartCheckpoint = FMath::Clamp(StartCheckpoint, 0, Checkpoints.Num() - 1);
 	
-	AActor* InitialCheckpoint = Checkpoints[StartCheckpoint];
+	ATileCheckpoint* InitialCheckpoint = Checkpoints[StartCheckpoint];
 	SetActorLocation(InitialCheckpoint->GetActorLocation());
 
 	LastCheckpoint = StartCheckpoint;
+	ActiveCommands = Checkpoints[LastCheckpoint]->GetCommands();
+	CurrentCommandIndex = 0;
+	CurrentCommandTimeLeft = ActiveCommands[CurrentCommandIndex].Duration;
 
 	SetTileProperties(TileType, true);
 }
@@ -91,8 +95,120 @@ void AMoveableActor::SetTileProperties(ETileTypesEnum TileType, bool Force = fal
 	CurrentTileType = TileType;
 }
 
-// Called every frame
+void AMoveableActor::PrintActiveCommands()
+{
+	UE_LOG(LogTemp, Warning, TEXT("====== CURRENT COMMANDS ======"));
+	UE_LOG(LogTemp, Warning, TEXT("------------------------------"));
+
+	for (int i = 0; i < ActiveCommands.Num(); i++)
+	{
+		if (ActiveCommands[i].Command == ECheckpointCommandsEnum::VE_Go)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Move for %.3f seconds!"), ActiveCommands[i].Duration);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("WAIT for %.3f seconds!"), ActiveCommands[i].Duration);
+		}
+	}
+	UE_LOG(LogTemp, Warning, TEXT("------------------------------"));
+}
+
 void AMoveableActor::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	CurrentCommandTimeLeft -= DeltaTime;
+
+	if (ActiveCommands[CurrentCommandIndex].Command == ECheckpointCommandsEnum::VE_Go)
+	{
+		ATileCheckpoint* ALastCheckpoint = Checkpoints[LastCheckpoint];
+		ATileCheckpoint* ANextCheckpoint = Checkpoints[(LastCheckpoint + 1) % Checkpoints.Num()];
+
+		FVector CurrentLocation = GetActorLocation();
+		FVector LastCheckpointLocation = ALastCheckpoint->GetActorLocation();
+		FVector NextCheckpointLocation = ANextCheckpoint->GetActorLocation();
+
+		float t = FVector::Dist(CurrentLocation, LastCheckpointLocation) / FVector::Dist(NextCheckpointLocation, LastCheckpointLocation);
+		t += DeltaTime / ActiveCommands[CurrentCommandIndex].Duration;
+		t = FMath::Clamp(t, 0.0f, 1.0f);
+
+		float NewX = LastCheckpointLocation.X + t * (NextCheckpointLocation.X - LastCheckpointLocation.X);
+		float NewY = LastCheckpointLocation.Y + t * (NextCheckpointLocation.Y - LastCheckpointLocation.Y);
+		float NewZ = LastCheckpointLocation.Z + t * (NextCheckpointLocation.Z - LastCheckpointLocation.Z);
+
+		SetActorLocation(FVector(NewX, NewY, NewZ));
+
+		if (t >= 1.0f)
+		{
+			LastCheckpoint = (LastCheckpoint + 1) % Checkpoints.Num();
+			ActiveCommands = Checkpoints[LastCheckpoint]->GetCommands();
+			CurrentCommandIndex = 0;
+			CurrentCommandTimeLeft = ActiveCommands[CurrentCommandIndex].Duration;
+
+			/*if (ActiveCommands[CurrentCommandIndex].Command == ECheckpointCommandsEnum::VE_Stay)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Waiting %.3f seconds!"), CurrentCommandTimeLeft);
+			}
+			else {
+				UE_LOG(LogTemp, Warning, TEXT("Moving to the next checkpoint for %.3f seconds!"), CurrentCommandTimeLeft);
+			}*/
+
+			UE_LOG(LogTemp, Warning, TEXT("Arrived at a new checkpoint!"));
+			PrintActiveCommands();
+
+			if (ActiveCommands[CurrentCommandIndex].Command == ECheckpointCommandsEnum::VE_Go)
+			{
+				CheckForReverse();
+			}
+
+			/*if (bNeedToReverse)
+			{
+				ExecuteReverse();
+
+				UE_LOG(LogTemp, Warning, TEXT("Reversed the checkpoints!"));
+				PrintActiveCommands();
+			}*/
+
+			return;
+		}
+	}
+
+	if (CurrentCommandTimeLeft <= 0.0f)
+	{
+		CurrentCommandIndex += 1;
+		CurrentCommandTimeLeft = ActiveCommands[CurrentCommandIndex].Duration;
+
+		if (ActiveCommands[CurrentCommandIndex].Command == ECheckpointCommandsEnum::VE_Go)
+		{
+			CheckForReverse();
+		}
+
+		if (ActiveCommands[CurrentCommandIndex].Command == ECheckpointCommandsEnum::VE_Stay)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Waiting %.3f seconds!"), CurrentCommandTimeLeft);
+		}
+		else {
+			UE_LOG(LogTemp, Warning, TEXT("Moving to the next checkpoint for %.3f seconds!"), CurrentCommandTimeLeft);
+		}
+
+		// AKO IMA ZVUKA, SVIRAJ OVDJE!!
+	}
+}
+
+void AMoveableActor::CheckForReverse()
+{
+	if (bNeedToReverse)
+	{
+		ExecuteReverse();
+
+		UE_LOG(LogTemp, Warning, TEXT("Reversed the checkpoints!"));
+		PrintActiveCommands();
+	}
+}
+
+// Called every frame
+/*void AMoveableActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
@@ -118,8 +234,8 @@ void AMoveableActor::Tick(float DeltaTime)
 	}
 	else
 	{
-		AActor* ALastCheckpoint = Checkpoints[LastCheckpoint];
-		AActor* ANextCheckpoint = Checkpoints[(LastCheckpoint + 1) % Checkpoints.Num()];
+		ATileCheckpoint* ALastCheckpoint = Checkpoints[LastCheckpoint];
+		ATileCheckpoint* ANextCheckpoint = Checkpoints[(LastCheckpoint + 1) % Checkpoints.Num()];
 
 		FVector CurrentLocation = GetActorLocation();
 		FVector LastCheckpointLocation = ALastCheckpoint->GetActorLocation();
@@ -143,7 +259,7 @@ void AMoveableActor::Tick(float DeltaTime)
 			WaitTimeLeft = CurrentProperties->CycleDuration * CurrentProperties->WaitCycles;
 		}
 	}
-}
+}*/
 
 void AMoveableActor::Reverse()
 {
@@ -171,6 +287,8 @@ void AMoveableActor::ExecuteReverse()
 	{
 		LastCheckpoint = (LastCheckpoint + 1) % Checkpoints.Num();
 	}
+
+	LastCheckpoint = (LastCheckpoint + 1) % Checkpoints.Num();
 
 	bNeedToReverse = false;
 }
