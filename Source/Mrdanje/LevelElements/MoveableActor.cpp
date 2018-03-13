@@ -91,6 +91,12 @@ void AMoveableActor::SetTileProperties(ETileTypesEnum TileType, bool Force = fal
 
 	//USkeletalMesh* skeletalMesh = Cast<USkeletalMesh>(StaticLoadObject(USkeletalMesh::StaticClass(), NULL, TEXT("SkeletalMesh'/Game/Dir/abc.abc'")));
 	Mesh->SetMaterial(0, NewMaterial);
+
+	for (int i = 0; i < Checkpoints.Num(); i++)
+	{
+		Checkpoints[i]->SetTileType(TileType);
+		Checkpoints[i]->ConnectToNextCheckpoint(Checkpoints[(i + 1) % Checkpoints.Num()]);
+	}
 	
 	CurrentTileType = TileType;
 }
@@ -154,8 +160,6 @@ void AMoveableActor::Tick(float DeltaTime)
 				UE_LOG(LogTemp, Warning, TEXT("Moving to the next checkpoint for %.3f seconds!"), CurrentCommandTimeLeft);
 			}*/
 
-			UE_LOG(LogTemp, Warning, TEXT("Arrived at a new checkpoint!"));
-			PrintActiveCommands();
 
 			if (ActiveCommands[CurrentCommandIndex].Command == ECheckpointCommandsEnum::VE_Go)
 			{
@@ -201,9 +205,6 @@ void AMoveableActor::CheckForReverse()
 	if (bNeedToReverse)
 	{
 		ExecuteReverse();
-
-		UE_LOG(LogTemp, Warning, TEXT("Reversed the checkpoints!"));
-		PrintActiveCommands();
 	}
 }
 

@@ -15,6 +15,8 @@ ATogglerTile::ATogglerTile()
 	FScriptDelegate OverlapEndDelegate;
 	OverlapEndDelegate.BindUFunction(this, "OnOverlapEnd");
 	EmptyMesh->OnComponentEndOverlap.Add(OverlapEndDelegate);
+
+	bIsToggler = true;
 }
 
 
@@ -29,13 +31,21 @@ void ATogglerTile::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* O
 		{
 			UE_LOG(LogTemp, Warning, TEXT("IT'S THE CORRECT COLOR!!!"));
 
-			for (int i = 0; i < TilesAffected.Num(); i++)
+			for (TActorIterator<AToggleableTile> TogglableItr(GetWorld()); TogglableItr; ++TogglableItr)
+			{
+				if (TogglableItr->TileType == this->TileType && !TogglableItr->bIsToggler)
+				{
+					TogglableItr->Toggle();
+				}
+			}
+
+			/*for (int i = 0; i < TilesAffected.Num(); i++)
 			{
 				if (TilesAffected[i]->TileType == TileType)
 				{
 					TilesAffected[i]->Toggle();
 				}
-			}
+			}*/
 
 			Toggle();
 		}
@@ -53,13 +63,21 @@ void ATogglerTile::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* Oth
 		{
 			UE_LOG(LogTemp, Warning, TEXT("IT'S THE CORRECT COLOR!!!"));
 
-			for (int i = 0; i < TilesAffected.Num(); i++)
+			for (TActorIterator<AToggleableTile> TogglableItr(GetWorld()); TogglableItr; ++TogglableItr)
+			{
+				if (TogglableItr->TileType == this->TileType && !TogglableItr->bIsToggler)
+				{
+					TogglableItr->Toggle();
+				}
+			}
+
+			/*for (int i = 0; i < TilesAffected.Num(); i++)
 			{
 				if (TilesAffected[i]->TileType == TileType)
 				{
 					TilesAffected[i]->Toggle();
 				}
-			}
+			}*/
 
 			Toggle();
 		}

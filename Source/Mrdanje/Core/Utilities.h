@@ -5,6 +5,15 @@
 #include "CoreMinimal.h"
 #include "Engine/World.h"
 
+UENUM(BlueprintType)
+enum class ETileTypesEnum : uint8
+{
+	VE_White 	UMETA(DisplayName = "White"),
+	VE_Red		UMETA(DisplayName = "Red"),
+	VE_Blue		UMETA(DisplayName = "Blue"),
+	VE_Yellow	UMETA(DisplayName = "Yellow")
+};
+
 template <typename ObjectType>
 static FORCEINLINE ObjectType* SpawnBP(UWorld* World, UClass* BP, const FVector& Location, const FRotator& Rotation,
 	const bool bNoCollisionFail = true, AActor* Owner = NULL, APawn* Instigator = NULL

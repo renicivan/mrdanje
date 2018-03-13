@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Materials/Material.h"
+#include "Core/Utilities.h"
 #include "TileCheckpoint.generated.h"
 
 UENUM(BlueprintType)
@@ -35,6 +37,8 @@ public:
 	// Sets default values for this actor's properties
 	ATileCheckpoint();
 	TArray<FCheckpointCommandStruct> GetCommands();
+	void SetTileType(ETileTypesEnum TileType);
+	void ConnectToNextCheckpoint(ATileCheckpoint* NextCheckpoint);
 
 	UPROPERTY(Category = Meshes, VisibleAnywhere)
 	UStaticMeshComponent* CheckpointMesh;
@@ -45,5 +49,5 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
+	UStaticMeshComponent* LinkMesh;
 };

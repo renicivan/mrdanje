@@ -24,7 +24,7 @@ protected:
 	virtual void BeginPlay() override;
 	void SetState(bool Filled);
 	void SetTypeProperties();
-	bool bFilled = false;
+	FVector FullScale;
 
 public:	
 	// Called every frame
@@ -38,6 +38,12 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	ETileTypesEnum TileType;
+
+	UPROPERTY(EditAnywhere)
+	bool bFilled = false;
+
+	UPROPERTY(VisibleAnywhere)
+	bool bIsToggler = false;
 
 	void Toggle();
 	

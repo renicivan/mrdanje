@@ -24,6 +24,7 @@ AToggleableTile::AToggleableTile()
 	FillMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Block);
 	FillMesh->SetupAttachment(RootComponent);
 
+	FullScale = EmptyMesh->GetComponentScale();
 	SetState(bFilled);
 }
 
@@ -52,7 +53,7 @@ void AToggleableTile::SetState(bool Filled)
 {
 	if (Filled)
 	{
-		FillMesh->SetRelativeScale3D(EmptyMesh->GetComponentScale());
+		FillMesh->SetRelativeScale3D(FullScale);
 	}
 	else
 	{
@@ -72,22 +73,22 @@ void AToggleableTile::SetTypeProperties()
 
 	if (TileType == ETileTypesEnum::VE_Red)
 	{
-		MaterialPath = "Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_RedTile.M_RedTile'";
+		MaterialPath = "Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_RedTileTransparent.M_RedTileTransparent'";
 		TransparentMaterialPath = "Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_RedTileTransparent.M_RedTileTransparent'";
 	}
 	else if (TileType == ETileTypesEnum::VE_Blue)
 	{
-		MaterialPath = "Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_BlueTile.M_BlueTile'";
+		MaterialPath = "Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_BlueTileTransparent.M_BlueTileTransparent'";
 		TransparentMaterialPath = "Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_BlueTileTransparent.M_BlueTileTransparent'";
 	}
 	else if (TileType == ETileTypesEnum::VE_Yellow)
 	{
-		MaterialPath = "Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_YellowTile.M_YellowTile'";
+		MaterialPath = "Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_YellowTileTransparent.M_YellowTileTransparent'";
 		TransparentMaterialPath = "Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_YellowTileTransparent.M_YellowTileTransparent'";
 	}
 	else
 	{
-		MaterialPath = "Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_WhiteTile.M_WhiteTile'";
+		MaterialPath = "Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_WhiteTileTransparent.M_WhiteTileTransparent'";
 		TransparentMaterialPath = "Material'/Game/Mrdanje/MaterialLibrary/LevelUnits/M_WhiteTileTransparent.M_WhiteTileTransparent'";
 	}
 

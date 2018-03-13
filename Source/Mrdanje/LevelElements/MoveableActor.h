@@ -8,16 +8,17 @@
 #include "Algo/Reverse.h"
 #include "Materials/Material.h"
 #include "TileCheckpoint.h"
+#include "Core/Utilities.h"
 #include "MoveableActor.generated.h"
 
-UENUM(BlueprintType)
+/*UENUM(BlueprintType)
 enum class ETileTypesEnum : uint8
 {
 	VE_White 	UMETA(DisplayName = "White"),
 	VE_Red		UMETA(DisplayName = "Red"),
 	VE_Blue		UMETA(DisplayName = "Blue"),
 	VE_Yellow	UMETA(DisplayName = "Yellow")
-};
+};*/
 
 struct FTileProperties {
 	int WaitCycles;
