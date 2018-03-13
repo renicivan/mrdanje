@@ -80,6 +80,8 @@ void AMrdanjeGameMode::SetLastCheckpoint(ALevelCheckpoint* Checkpoint)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Checkpoint reached!"));
 	LastCheckpoint = Checkpoint;
+
+	Cast<UMrdanjeGameInstance>(GetGameInstance())->PrintMessageToScreen("Checkpoint reached.", 180);
 }
 
 ALevelCheckpoint * AMrdanjeGameMode::GetLastCheckpoint()

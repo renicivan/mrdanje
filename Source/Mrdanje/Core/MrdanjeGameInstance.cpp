@@ -54,3 +54,8 @@ float UMrdanjeGameInstance::GetPowerReserve()
 {
 	return PowerReserve;
 }
+
+void UMrdanjeGameInstance::PrintMessageToScreen(FString Message, int Duration)
+{
+	Cast<AMrdanjeHUD>(GetWorld()->GetFirstPlayerController()->GetHUD())->AddMessage(Message, Duration);
+}

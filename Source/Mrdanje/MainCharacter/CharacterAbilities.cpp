@@ -98,31 +98,51 @@ void UCharacterAbilities::SetupPlayerInputComponent(class UInputComponent* Curre
 void UCharacterAbilities::AddPower(float PowerDelta)
 {
 	//CurrentPower = FMath::Clamp(CurrentPower + PowerDelta, 0.0f, MaxPower);
+	CurrentPower += PowerDelta;
 
-	/*for (auto& Ability : Abilities)
+	UMrdanjeGameInstance* GameInstance = Cast<UMrdanjeGameInstance>(GetOwner()->GetGameInstance());
+	float TotalPower = GameInstance->GetPowerReserve() + CurrentPower;
+
+	for (auto& Ability : Abilities)
 	{
-		if (!Ability->IsActive() && CurrentPower > Ability->PowerNeededToActivate()) {
+		if (!Ability->IsActive() && TotalPower > Ability->PowerNeededToActivate()) {
 			Ability->SetActive(true);
 		}
-		else if (Ability->IsActive() && CurrentPower < Ability->PowerNeededToActivate())
+		else if (Ability->IsActive() && TotalPower < Ability->PowerNeededToActivate())
 		{
 			Ability->SetActive(false);
 		}
-	}*/
+	}
 
-	CurrentPower += PowerDelta;
+	//CurrentPower = FMath::Clamp(CurrentPower + PowerDelta, 0.f, MaxPower);
+	/*if (CurrentPower > MaxPower)
+	{
+		CurrentPower = MaxPower;
+	}*/
+	
 
 	if (CurrentPower < 0)
 	{
-		UMrdanjeGameInstance* GameInstance = Cast<UMrdanjeGameInstance>(GetOwner()->GetGameInstance());
 		GameInstance->AddPower(CurrentPower);
 		CurrentPower = 0;
+
+		if (!bTutorializedPowerSystem)
+		{
+			GameInstance->PrintMessageToScreen("If you run out of battery power, the reserve will be used.", 180);
+			bTutorializedPowerSystem = true;
+		}
 	}
 
+	CurrentPower = FMath::Clamp(CurrentPower, 0.f, MaxPower);
 	UE_LOG(LogTemp, Warning, TEXT("%2.2f power added! Current power: %2.2f"), PowerDelta, CurrentPower);
 }
 
 void UCharacterAbilities::SetStandingInSunlight(bool StandingInSunlight)
 {
 	bStandingInSunlight = StandingInSunlight;
+}
+
+float UCharacterAbilities::GetCurrentPower()
+{
+	return CurrentPower;
 }

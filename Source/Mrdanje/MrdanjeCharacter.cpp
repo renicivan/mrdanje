@@ -181,6 +181,12 @@ void AMrdanjeCharacter::SetStandingInSunlight(bool StandingInSunlight)
 {
 	if (StandingInSunlight)
 	{
+		if (!bTutorializedSun)
+		{
+			PrintMessageToScreen("Standing in the sun (well, these yellow lights for this demo) regenerates battery power, but not reserve power.", 180);
+			bTutorializedSun = true;
+		}
+		
 		UE_LOG(LogTemp, Warning, TEXT("++++++++++++++++++++++++ PLAYER STANDING IN THE SUNLIGHTTTTTTTTTTT!"));
 	} else {
 		UE_LOG(LogTemp, Warning, TEXT("------------------------ player NOT standing in the sunlight!!!!!!!!!!!!!!!!"));
@@ -188,6 +194,16 @@ void AMrdanjeCharacter::SetStandingInSunlight(bool StandingInSunlight)
 	
 	bStandingInSunlight = StandingInSunlight;
 	CharacterAbilities->SetStandingInSunlight(bStandingInSunlight);
+}
+
+float AMrdanjeCharacter::GetCurrentBatteryPower()
+{
+	return CharacterAbilities->GetCurrentPower();
+}
+
+void AMrdanjeCharacter::PrintMessageToScreen(FString Message, int Duration)
+{
+	Cast<AMrdanjeHUD>(GetWorld()->GetFirstPlayerController()->GetHUD())->AddMessage(Message, Duration);
 }
 
 

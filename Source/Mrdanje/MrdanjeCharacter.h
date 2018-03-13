@@ -7,6 +7,7 @@
 #include "MainCharacter/CharacterAbilities.h"
 #include "Engine/World.h"
 #include "MrdanjeGameMode.h"
+#include "MrdanjeHUD.h"
 #include "MrdanjeCharacter.generated.h"
 
 class UInputComponent;
@@ -61,6 +62,7 @@ public:
 	float BaseLookUpRate;
 
 	void SetStandingInSunlight(bool StandingInSunlight);
+	float GetCurrentBatteryPower();
 
 protected:
 	
@@ -86,6 +88,8 @@ protected:
 	void LookUpAtRate(float Rate);
 
 	bool bStandingInSunlight = false;
+
+	bool bTutorializedSun = false;
 	
 protected:
 	// APawn interface
@@ -98,5 +102,7 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+	UFUNCTION(BlueprintCallable)
+	void PrintMessageToScreen(FString Message, int Duration);
 };
 

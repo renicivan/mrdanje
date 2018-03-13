@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/GameInstance.h"
+#include "MrdanjeHUD.h"
 #include "MrdanjeGameInstance.generated.h"
 
 /**
@@ -22,6 +23,8 @@ public:
 	void OnLevelFinished();
 	void AddPower(float PowerDelta);
 	float GetPowerReserve();
+
+	void PrintMessageToScreen(FString Message, int Duration);
 	
 private:
 	int CurrentLevel;

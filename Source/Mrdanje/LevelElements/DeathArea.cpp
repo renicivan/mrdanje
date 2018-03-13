@@ -13,6 +13,7 @@ void ADeathArea::OnTestOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor*
 		ALevelCheckpoint* LastCheckpoint = GameMode->GetLastCheckpoint();
 
 		MainCharacter->SetActorLocation(LastCheckpoint->GetActorLocation());
+		MainCharacter->PrintMessageToScreen("When you die, you are returned automatically to your previous checkpoint.", 180);
 
 		UMrdanjeGameInstance* GameInstance = Cast<UMrdanjeGameInstance>(GetGameInstance());
 		GameInstance->AddPower(-100.0f);

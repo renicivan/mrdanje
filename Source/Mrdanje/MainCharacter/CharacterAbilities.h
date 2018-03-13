@@ -42,6 +42,7 @@ protected:
 	float MaxPower;
 	float CurrentPower;
 	bool bStandingInSunlight;
+	bool bTutorializedPowerSystem;
 	float PowerRecoveryPerSecond;
 	
 	void CreateAbility(EAbilitiesEnum Ability);
@@ -52,4 +53,5 @@ public:
 	void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent);
 	void AddPower(float PowerDelta);
 	void SetStandingInSunlight(bool StandingInSunlight);
+	float GetCurrentPower();
 };
