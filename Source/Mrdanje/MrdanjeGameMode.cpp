@@ -75,3 +75,14 @@ void AMrdanjeGameMode::FinishLevel()
 		UGameplayStatics::OpenLevel(GetWorld(), "TestLevel");
 	}*/
 }
+
+void AMrdanjeGameMode::SetLastCheckpoint(ALevelCheckpoint* Checkpoint)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Checkpoint reached!"));
+	LastCheckpoint = Checkpoint;
+}
+
+ALevelCheckpoint * AMrdanjeGameMode::GetLastCheckpoint()
+{
+	return LastCheckpoint;
+}

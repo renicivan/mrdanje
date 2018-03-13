@@ -32,9 +32,13 @@ public:
 	void StartLevel();
 	void FinishLevel();
 
+	void SetLastCheckpoint(class ALevelCheckpoint* Checkpoint);
+	ALevelCheckpoint* GetLastCheckpoint();
+
 private:
 	AMrdanjeCharacter* MainCharacter;
 	EGameState::Type GameState;
+	class ALevelCheckpoint* LastCheckpoint;
 };
 
 
