@@ -14,8 +14,9 @@ UMrdanjeGameInstance::UMrdanjeGameInstance(const FObjectInitializer& ObjectIniti
 void UMrdanjeGameInstance::CreateMapOrder()
 {
 	// Create map order
-	MapOrder.Add("TestLevel");
 	MapOrder.Add("L0101");
+	MapOrder.Add("L0102");
+	MapOrder.Add("L0103");
 }
 
 void UMrdanjeGameInstance::OnLevelFinished()
