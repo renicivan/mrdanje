@@ -6,7 +6,7 @@ UMrdanjeGameInstance::UMrdanjeGameInstance(const FObjectInitializer& ObjectIniti
 	: Super(ObjectInitializer)
 {
 	CurrentLevel = 0;
-	PowerReserve = 100.0f;
+	PowerReserve = 1000.0f;
 
 	CreateMapOrder();
 }
