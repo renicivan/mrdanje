@@ -11,15 +11,6 @@
 #include "Core/Utilities.h"
 #include "MoveableActor.generated.h"
 
-/*UENUM(BlueprintType)
-enum class ETileTypesEnum : uint8
-{
-	VE_White 	UMETA(DisplayName = "White"),
-	VE_Red		UMETA(DisplayName = "Red"),
-	VE_Blue		UMETA(DisplayName = "Blue"),
-	VE_Yellow	UMETA(DisplayName = "Yellow")
-};*/
-
 struct FTileProperties {
 	int WaitCycles;
 	float CycleDuration;
@@ -66,7 +57,6 @@ public:
 	UStaticMeshComponent* Mesh;
 
 	UPROPERTY(EditAnywhere)
-	//TArray<AActor*> Checkpoints;
 	TArray<ATileCheckpoint*> Checkpoints;
 
 	UPROPERTY(EditAnywhere)

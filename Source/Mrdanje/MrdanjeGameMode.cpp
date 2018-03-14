@@ -55,25 +55,6 @@ void AMrdanjeGameMode::FinishLevel()
 	// get game instance
 	UMrdanjeGameInstance* GameInstance = Cast<UMrdanjeGameInstance>(GetGameInstance());
 	GameInstance->OnLevelFinished();
-
-	/*CurrentLevel += 1;
-	if (MapOrder.IsValidIndex(CurrentLevel))
-	{
-		FString NewLevel = MapOrder[CurrentLevel];
-		UE_LOG(LogTemp, Warning, TEXT("NEW level is %02d - %s"), CurrentLevel, *NewLevel);
-		UGameplayStatics::OpenLevel(GetWorld(), *NewLevel);
-	}*/
-
-
-
-	/*FString CurrentLevelName = GetWorld()->GetName();
-
-	if (CurrentLevelName == "TestLevel") {
-		UGameplayStatics::OpenLevel(GetWorld(), "L0102");
-	}
-	else if (CurrentLevelName == "L0102") {
-		UGameplayStatics::OpenLevel(GetWorld(), "TestLevel");
-	}*/
 }
 
 void AMrdanjeGameMode::SetLastCheckpoint(ALevelCheckpoint* Checkpoint)

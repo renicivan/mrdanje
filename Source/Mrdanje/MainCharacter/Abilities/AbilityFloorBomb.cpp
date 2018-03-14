@@ -32,34 +32,17 @@ void UAbilityFloorBomb::Trigger()
 			ExplodeBomb();
 		}
 	}
-	
-
-	/*if (!ActiveProjectile) {
-		FireBomb();
-	}
-	else {
-		ExplodeBomb();
-	}	*/
 }
 
 void UAbilityFloorBomb::FireBomb()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Spawning floor bomb!"));
 
-	
-	/*UObject* ProjectileBP = StaticLoadObject(UObject::StaticClass(), nullptr, TEXT("/Game/Mrdanje/Weapons/FloorBomb/BP_FloorBomb"));
-	UBlueprint* bp = Cast<UBlueprint>(ProjectileBP);
-	TSubclassOf<class AFloorBomb> ProjectileBlueprint;
-	ProjectileBlueprint = (UClass*)bp->GeneratedClass;*/
-
 	FVector Location = PlayerCharacter->GetActorLocation();
 	FRotator Rotation = FRotator(0);
 	UWorld* World = PlayerCharacter->GetWorld();
 
-	ActiveProjectile = Utilities::SpawnBlueprint<AFloorBomb>("/Game/Mrdanje/Weapons/FloorBomb/BP_FloorBomb", World, Location, Rotation, PlayerCharacter);
-
-	//ActiveProjectile = SpawnBlueprint<AFloorBomb>(World, ProjectileBlueprint, Location, Rotation, true, PlayerCharacter, NULL);
-	
+	ActiveProjectile = Utilities::SpawnBlueprint<AFloorBomb>("/Game/Mrdanje/Weapons/FloorBomb/BP_FloorBomb", World, Location, Rotation, PlayerCharacter);	
 
 	
 	ForceApplyTime = 0.1f;

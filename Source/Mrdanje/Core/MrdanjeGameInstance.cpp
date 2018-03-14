@@ -25,7 +25,6 @@ void UMrdanjeGameInstance::OnLevelFinished()
 	if (MapOrder.IsValidIndex(CurrentLevel))
 	{
 		FString NewLevel = MapOrder[CurrentLevel];
-		UE_LOG(LogTemp, Warning, TEXT("NEW level is %02d - %s"), CurrentLevel, *NewLevel);
 		UGameplayStatics::OpenLevel(GetWorld(), *NewLevel);
 	}
 	else {
@@ -41,8 +40,6 @@ int UMrdanjeGameInstance::GetCurrentLevel()
 void UMrdanjeGameInstance::AddPower(float PowerDelta)
 {
 	PowerReserve += PowerDelta;
-	UE_LOG(LogTemp, Warning, TEXT("ADDED %.2f POWER!"), PowerDelta);
-	UE_LOG(LogTemp, Warning, TEXT("Current power reserves at %.2f!"), PowerReserve);
 
 	if (PowerReserve <= 0)
 	{
@@ -53,7 +50,6 @@ void UMrdanjeGameInstance::AddPower(float PowerDelta)
 			PrintMessageToScreen("Running out of reserve power would usually be game over, but this is a demo.", 180);
 			bTutorializedGameOver = true;
 		}
-		UE_LOG(LogTemp, Warning, TEXT("G A M E   O V E R !"));
 	}
 }
 

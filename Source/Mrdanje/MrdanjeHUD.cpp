@@ -29,8 +29,6 @@ void AMrdanjeHUD::DrawHUD()
 	// offset by half the texture's dimensions so that the center of the texture aligns with the center of the Canvas
 	const FVector2D CrosshairDrawPosition( (Center.X),
 										   (Center.Y + 20.0f));
-
-	//DrawText("AHHAHA", FLinearColor::Blue, 100, 100);
 	
 	
 	AMrdanjeCharacter* Player = Cast<AMrdanjeCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
@@ -50,11 +48,6 @@ void AMrdanjeHUD::DrawHUD()
 			Messages.RemoveAt(0);
 		}
 	}
-
-	// draw the crosshair
-	//FCanvasTileItem TileItem( CrosshairDrawPosition, CrosshairTex->Resource, FLinearColor::White);
-	//TileItem.BlendMode = SE_BLEND_Translucent;
-	//Canvas->DrawItem( TileItem );
 }
 
 void AMrdanjeHUD::AddMessage(FString Text, int TimeDisplayed)

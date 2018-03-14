@@ -39,14 +39,6 @@ void ATogglerTile::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* O
 				}
 			}
 
-			/*for (int i = 0; i < TilesAffected.Num(); i++)
-			{
-				if (TilesAffected[i]->TileType == TileType)
-				{
-					TilesAffected[i]->Toggle();
-				}
-			}*/
-
 			Toggle();
 		}
 	}
@@ -70,14 +62,6 @@ void ATogglerTile::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* Oth
 					TogglableItr->Toggle();
 				}
 			}
-
-			/*for (int i = 0; i < TilesAffected.Num(); i++)
-			{
-				if (TilesAffected[i]->TileType == TileType)
-				{
-					TilesAffected[i]->Toggle();
-				}
-			}*/
 
 			Toggle();
 		}

@@ -23,8 +23,6 @@ public:
 	UPROPERTY(Category = Meshes, VisibleAnywhere)
 	UStaticMeshComponent* ProjectileMesh;
 
-	//TSubclassOf<class AFloorBomb> ProjectileBlueprint;
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

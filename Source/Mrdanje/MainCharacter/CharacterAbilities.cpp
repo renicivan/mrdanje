@@ -113,12 +113,6 @@ void UCharacterAbilities::AddPower(float PowerDelta)
 			Ability->SetActive(false);
 		}
 	}
-
-	//CurrentPower = FMath::Clamp(CurrentPower + PowerDelta, 0.f, MaxPower);
-	/*if (CurrentPower > MaxPower)
-	{
-		CurrentPower = MaxPower;
-	}*/
 	
 
 	if (CurrentPower < 0)

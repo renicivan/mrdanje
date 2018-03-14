@@ -11,13 +11,7 @@ AToggleableTile::AToggleableTile()
 
 	EmptyMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("EmptyMesh"));
 	EmptyMesh->SetCollisionResponseToAllChannels(ECR_Ignore);
-	//EmptyMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
 	EmptyMesh->SetupAttachment(RootComponent);
-
-	/*EmptyMesh->bGenerateOverlapEvents = true;
-	FScriptDelegate HitDelegate;
-	HitDelegate.BindUFunction(this, "OnOverlapBegin");
-	EmptyMesh->OnComponentBeginOverlap.Add(HitDelegate);*/
 
 	FillMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("FillMesh"));
 	FillMesh->SetCollisionResponseToAllChannels(ECR_Ignore);
@@ -61,7 +55,6 @@ void AToggleableTile::SetState(bool Filled)
 	}
 
 	FillMesh->SetRelativeLocation(FVector(0, 0, 0));
-	//FillMesh->SetRelativeScale3D
 
 	bFilled = Filled;
 }

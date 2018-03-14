@@ -3,8 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-//#include "GameFramework/Character.h"
-//#include "GameFramework/CharacterMovementComponent.h"
 #include "Core/Utilities.h"
 #include "Camera/CameraComponent.h"
 #include "Weapons/FloorBomb.h"
@@ -13,26 +11,6 @@
 #include "MainCharacter/Abilities/Ability.h"
 #include "AbilityFloorBomb.generated.h"
 
-/*template <typename ObjectType>
-static FORCEINLINE ObjectType* SpawnBlueprint(UWorld* World, UClass* BP, const FVector& Location, const FRotator& Rotation,
-	const bool bNoCollisionFail = true, AActor* Owner = NULL, APawn* Instigator = NULL
-) {
-	if (!World) return NULL;
-	if (!BP) return NULL;
-	//~~
-
-	FActorSpawnParameters SpawnInfo;
-	//SpawnInfo.bNoCollisionFail = bNoCollisionFail;
-	SpawnInfo.Owner = Owner;
-	SpawnInfo.Instigator = Instigator;
-	SpawnInfo.bDeferConstruction = false;
-
-	return World->SpawnActor<ObjectType>(BP, Location, Rotation, SpawnInfo);
-}*/
-
-/**
- * 
- */
 UCLASS()
 class MRDANJE_API UAbilityFloorBomb : public UAbility
 {

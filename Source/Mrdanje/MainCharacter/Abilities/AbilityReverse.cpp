@@ -9,8 +9,6 @@ UAbilityReverse::UAbilityReverse()
 
 void UAbilityReverse::Init(class UInputComponent* InputComponentUsed, ACharacter* CharacterWithAbility, class UCharacterAbilities* AbilityManager)
 {
-	//InputComponentUsed->BindAction("FloorBomb", IE_Pressed, this, &UAbilityFloorBomb::Trigger);
-	UE_LOG(LogTemp, Warning, TEXT("++++++++++++++++++++++++ REJOIIIIIIIIIIIIIIICEEEEEEEEEE"));
 	MinPowerNeeded = 20.0f;
 
 	this->AbilityManager = AbilityManager;
@@ -21,7 +19,6 @@ void UAbilityReverse::Reverse()
 {
 	if (bActive)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("REVERSING %02d!"), TileColor);
 		for (TActorIterator<AMoveableActor> ActorItr(PlayerCharacter->GetWorld()); ActorItr; ++ActorItr)
 		{
 			if (ActorItr->GetTileType() == this->TileType)

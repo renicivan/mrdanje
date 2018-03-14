@@ -22,7 +22,6 @@ class AMrdanjeCharacter : public ACharacter
 	class USkeletalMeshComponent* Mesh1P;
 
 	/** Location on player mesh where projectiles should spawn. */
-	//UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 	class USceneComponent* ProjectileSpawnLocation;
 
@@ -65,9 +64,6 @@ public:
 	float GetCurrentBatteryPower();
 
 protected:
-	
-	/** Fires a projectile. */
-	void OnFire();
 
 	/** Handles moving forward/backward */
 	void MoveForward(float Val);
